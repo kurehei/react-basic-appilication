@@ -1,54 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-const App = function() {
-  const profiles = [
-    {name: "Taro", age: 10},
-    {name: "Hanako", age: 5},
-    {name: "Noname", age: 2}
-  ];
+const App = () => (<Counter></Counter>)
 
-  const data = [
-    {title: "Java", price: 2000},
-    {title: "PHP", price: 4000}
-  ];
-  return <div>
-            {
-              // javascriptのコード
-              profiles.map((profile, i) => {
-                return <User name={profile.name} age = {profile.age} key={i}/>
-              })
-            }
-            {
-              data.map((element, i) =>{
-                return <Post title = {element.title} price = {element.price} key={i}/>
-              })
-            }
-          </div>
+class Counter extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {count: 0}
   }
-// const Exemple = () { 関数コンポーネント
-  // return <div></div>
-//}
-/*
-const App = () {
-  return(
-    <div>Exemple</div>
-  )
-}
-*/
-const User = (props) => {
-return <div>Hi!{props.name}and {props.age}</div>
-}
 
-const Post = function(props) {
-return <div>タイトル：{props.title} 値段：{props.price}</div>
-}
-// propsが渡っていない場合でも、デフォルトで設定する
-// propsの型チェックを行う
-User.propTypes = {
-  name: PropTypes.string,
-  // isRequiredは値が無い場合エラー
-  age: PropTypes.number.isRequired
+  handlePlusButton = () => {
+    //console.log(this.state.count);
+    // setStateは状態の管理
+    // setStateを使用することで、状態変更時に再レンダリングされる。
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  handleMinusButton = () => {
+    this.setState({ count: this.state.count -1});
+  }
+  render() {
+  return (
+    <React.Fragment>
+      <div>counter{ this.state.count }</div>
+      <button onClick={this.handlePlusButton}>+1</button>
+      <button onClick={ this.handleMinusButton }>-1</button>
+    </React.Fragment>)
+  }
 }
 
 export default App;
